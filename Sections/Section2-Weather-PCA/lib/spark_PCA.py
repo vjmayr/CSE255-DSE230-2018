@@ -15,13 +15,14 @@ def sumWithNan(M1,M2):
     X=np.nansum(np.dstack((X1,X2)),axis=2)
     return (X,N)
 
+### HW: Replace the RHS of the expressions in this function (They need to depend on S and N.
 def HW_func(S,N):
-    E=      # E is the sum of the vectors
-    NE=     # NE is the number of not-nan antries for each coordinate of the vectors
-    Mean=   # Mean is the Mean vector (ignoring nans)
-    O=      # O is the sum of the outer products
-    NO=     # NO is the number of non-nans in the outer product.
-    return 
+    E=      np.ones([365]) # E is the sum of the vectors
+    NE=     np.ones([365]) # NE is the number of not-nan antries for each coordinate of the vectors
+    Mean=   np.ones([365]) # Mean is the Mean vector (ignoring nans)
+    O=      np.ones([365,365]) # O is the sum of the outer products
+    NO=     np.ones([365,365]) # NO is the number of non-nans in the outer product.
+    return  E,NE,Mean,O,NO
 
 def computeCov(RDDin):
     """computeCov recieves as input an RDD of np arrays, all of the same length, 
