@@ -1,5 +1,6 @@
 """A function for getting the files for weather analysis from s3"""
 
+import os
 import os.path as path
 from shutil import rmtree
 from subprocess import call
