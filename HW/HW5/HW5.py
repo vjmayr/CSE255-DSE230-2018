@@ -66,7 +66,7 @@ sc = spark.sparkContext
 # For local testing, please create your own `hw5-files.txt` file, which contains a single file path on the local disk, e.g.
 # `file://<absolute_path_to_current_directory>/hw5-small.parquet`. For final submission, we will create this file on our server for testing with the appropriate file path. If your implementation is correct, you should not worry about which file system (i.e. local file system or HDFS) Spark will read data from.
 
-# In[4]:
+# In[3]:
 
 
 with open('./hw5-files.txt') as f:
@@ -93,23 +93,13 @@ with open('./hw5-files.txt') as f:
 # 
 # <font color="red">**Hint : **</font> You might find [K-Means API](https://spark.apache.org/docs/2.2.0/mllib-clustering.html#k-means) useful. Ensure that the initializationMode parameter is set to kmeans++. The computeCost function gives you the sum of squared distances. You might want to tweak maxIterations to compute centers faster
 
-# In[95]:
-
-
-from math import sqrt
-
-def error(point, clusters):
-    center = clusters.centers[clusters.predict(point)]
-    return sum([x**2 for x in (point - center)])
+# In[6]:
 
 
 def runKmeans(data, sample_dataset, k, count):
-    # YOUR CODE HERE
     
     clusters = KMeans.train(sample_dataset, k, maxIterations=10, initializationMode="k-means||")
-    MSE = data.map(lambda point: error(point, clusters)).reduce(lambda x, y: x + y)
-    
-    return MSE / count
+    return clusters.computeCost(data) / count
 
 
 # ### Exercise 2: computeIntrinsicDimension
@@ -132,7 +122,7 @@ def runKmeans(data, sample_dataset, k, count):
 # ```
 # <font color="red">**Hint : **</font> Use the last formula in the theory section 
 
-# In[24]:
+# In[8]:
 
 
 from math import log10
@@ -173,7 +163,7 @@ def computeIntrinsicDimension(n1, e1, n2, e2):
 # ```
 # **Note: The output here is the output of the below function, i.e., the value stored in the variable where the 'run' function is called**
 
-# In[98]:
+# In[17]:
 
 
 def run(df):
@@ -206,7 +196,7 @@ def run(df):
     return ret
 
 
-# In[99]:
+# In[18]:
 
 
 df = spark.read.parquet(file_path)
@@ -215,7 +205,7 @@ with open('results.pkl', 'wb') as output:
     pickle.dump(res, output, 2, fix_imports=True)
 
 
-# In[100]:
+# In[20]:
 
 
 # res
